@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1 class="app__title">Pomodoro Timer</h1>
+      </header>
+
+      <section class="timer">
+        <div class="timer__display" id="timer-display">25:00</div>
+        <div class="timer__modes" role="group" aria-label="Timer modes">
+          <button class="mode-button" data-mode="work">Work</button>
+          <button class="mode-button" data-mode="shortBreak">Short Break</button>
+          <button class="mode-button" data-mode="longBreak">Long Break</button>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Timer controls">
+        <button id="start-button" class="primary">Start</button>
+        <button id="pause-button">Pause</button>
+        <button id="reset-button">Reset</button>
+      </section>
+
+      <section class="settings" aria-label="Timer settings">
+        <h2 class="settings__title">Settings</h2>
+        <form class="settings__form" id="settings-form">
+          <label class="settings__field">
+            <span>Work (min)</span>
+            <input type="number" id="work-minutes" min="1" max="120" step="1" />
+          </label>
+          <label class="settings__field">
+            <span>Short Break (min)</span>
+            <input type="number" id="short-break-minutes" min="1" max="60" step="1" />
+          </label>
+          <label class="settings__field">
+            <span>Long Break (min)</span>
+            <input type="number" id="long-break-minutes" min="1" max="90" step="1" />
+          </label>
+          <label class="settings__field">
+            <span>Cycles Before Long Break</span>
+            <input type="number" id="cycle-count" min="1" max="10" step="1" />
+          </label>
+        </form>
+        <button id="apply-settings" class="settings__apply">Apply Settings</button>
+      </section>
+
+      <section class="dashboard" aria-label="History dashboard">
+        <h2 class="dashboard__title">Dashboard</h2>
+        <div class="dashboard__grid">
+          <article class="dashboard__card">
+            <p class="dashboard__label">This Week</p>
+            <p class="dashboard__value" id="weekly-total">0h 0m</p>
+            <p class="dashboard__meta" id="weekly-count">0 sessions</p>
+          </article>
+          <article class="dashboard__card">
+            <p class="dashboard__label">This Month</p>
+            <p class="dashboard__value" id="monthly-total">0h 0m</p>
+            <p class="dashboard__meta" id="monthly-count">0 sessions</p>
+          </article>
+        </div>
+        <div class="dashboard__recent">
+          <h3 class="dashboard__subtitle">Recent Sessions</h3>
+          <ul class="dashboard__list" id="recent-sessions"></ul>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/static/js/app.js"></script>
+  </body>
+</html>
