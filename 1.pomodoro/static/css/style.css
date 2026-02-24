@@ -1,0 +1,296 @@
+/* ポモドーロタイマー - 視覚的フィードバック強化版 CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #4a9eff;
+    --color-warning: #ffd700;
+    --color-danger: #ff4444;
+    --color-bg-dark: #1a1a2e;
+    --color-bg-light: #16213e;
+    --color-text: #ffffff;
+    --color-text-muted: #a0a0c0;
+    --shadow-glow: 0 0 20px rgba(74, 158, 255, 0.5);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-light) 100%);
+    color: var(--color-text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 背景パーティクルキャンバス */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 波紋エフェクトコンテナ */
+#rippleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(74, 158, 255, 0.6);
+    animation: rippleAnimation 2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes rippleAnimation {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+/* メインコンテナ */
+.container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(22, 33, 62, 0.85);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+}
+
+.subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+/* タイマーコンテナ */
+.timer-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 2rem auto;
+}
+
+/* 円形プログレスバー */
+.progress-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(0deg);
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+    stroke-dasharray: 565.48;
+    stroke-dashoffset: 0;
+}
+
+/* アニメーションクラス */
+.progress-ring-circle.animate {
+    transition: stroke-dashoffset 1s linear;
+}
+
+/* タイマー表示 */
+.timer-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.time {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-shadow: var(--shadow-glow);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.status {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+}
+
+/* コントロールボタン */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-start {
+    background: linear-gradient(135deg, #4a9eff 0%, #357abd 100%);
+    color: white;
+}
+
+.btn-start:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5aaeff 0%, #4589cd 100%);
+}
+
+.btn-pause {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
+    color: #333;
+}
+
+.btn-pause:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ffe520 0%, #ffc520 100%);
+}
+
+.btn-reset {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    color: white;
+}
+
+.btn-reset:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ff5555 0%, #dd1111 100%);
+}
+
+/* セッション情報 */
+.session-info {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: rgba(74, 158, 255, 0.1);
+    border-radius: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.info-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+/* フッター */
+footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .timer-container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .time {
+        font-size: 2.5rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+/* 集中モード時のエフェクト */
+body.focus-mode {
+    animation: focusPulse 3s ease-in-out infinite;
+}
+
+@keyframes focusPulse {
+    0%, 100% {
+        background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-light) 100%);
+    }
+    50% {
+        background: linear-gradient(135deg, #1a1a2e 0%, #1e2a4a 100%);
+    }
+}
