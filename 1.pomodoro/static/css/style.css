@@ -116,6 +116,7 @@ header h1 {
 
 .progress-ring-circle {
     transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+    /* 初期値: JavaScriptで動的に計算された値（2 * π * 90 = 565.48）が設定される */
     stroke-dasharray: 565.48;
     stroke-dashoffset: 0;
 }

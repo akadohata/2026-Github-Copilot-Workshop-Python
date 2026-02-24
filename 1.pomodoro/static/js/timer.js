@@ -192,6 +192,9 @@ class PomodoroTimer {
     }
     
     createRipple() {
+        const RIPPLE_MAX_SIZE = 300; // 波紋の最大サイズ（CSSアニメーションと一致）
+        const RIPPLE_OFFSET = RIPPLE_MAX_SIZE / 2; // 中心に配置するためのオフセット
+        
         const rippleContainer = document.getElementById('rippleContainer');
         const ripple = document.createElement('div');
         ripple.className = 'ripple';
@@ -202,8 +205,8 @@ class PomodoroTimer {
         
         ripple.style.left = `${x}px`;
         ripple.style.top = `${y}px`;
-        ripple.style.marginLeft = '-150px';
-        ripple.style.marginTop = '-150px';
+        ripple.style.marginLeft = `-${RIPPLE_OFFSET}px`;
+        ripple.style.marginTop = `-${RIPPLE_OFFSET}px`;
         
         rippleContainer.appendChild(ripple);
         
