@@ -42,4 +42,6 @@ if __name__ == '__main__':
     os.makedirs(os.path.join(static_folder, 'css'), exist_ok=True)
     os.makedirs(os.path.join(static_folder, 'js'), exist_ok=True)
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # セキュリティ: 環境変数でデバッグモードを制御（デフォルトはFalse）
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)
