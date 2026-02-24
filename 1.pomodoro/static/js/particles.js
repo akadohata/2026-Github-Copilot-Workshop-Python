@@ -89,9 +89,9 @@ class Particle {
         
         // パーティクルの色をランダムに設定（青系統）
         const colors = [
-            'rgba(74, 158, 255',
-            'rgba(53, 122, 189',
-            'rgba(100, 180, 255'
+            { r: 74, g: 158, b: 255 },
+            { r: 53, g: 122, b: 189 },
+            { r: 100, g: 180, b: 255 }
         ];
         this.color = colors[Math.floor(Math.random() * colors.length)];
     }
@@ -115,12 +115,12 @@ class Particle {
     draw(ctx) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `${this.color}, ${this.opacity})`;
+        ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`;
         ctx.fill();
         
         // グロー効果
         ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color + ', 0.8)';
+        ctx.shadowColor = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0.8)`;
         ctx.fill();
         ctx.shadowBlur = 0;
     }
